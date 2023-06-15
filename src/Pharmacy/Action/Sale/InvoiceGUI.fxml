@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pharmacy.Action.Sale.InvoiceController">
+   <children>
+      <Label fx:id="invoiceLabel" layoutX="158.0" layoutY="14.0" text="Invoice">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <VBox layoutX="87.0" layoutY="63.0" prefHeight="296.0" prefWidth="196.0">
+         <children>
+            <Label fx:id="invoiceNumberLabel" text="Invoice number" />
+            <TextField fx:id="invoiceNumberTextField" editable="false" />
+            <Label fx:id="nameLabel" text="Name" />
+            <TextField fx:id="nameTextField" />
+            <Label fx:id="surnameLabel" text="Surname" />
+            <TextField fx:id="surnameTextField" />
+            <Label fx:id="companyNameLabel" text="Company name" />
+            <TextField fx:id="companyNameTextField" />
+            <Label fx:id="nipLabel" text="NIP" />
+            <TextField fx:id="nipTextField" />
+            <Label fx:id="dateLabel" text="Date of transaction" />
+            <TextField fx:id="dateTextField" editable="false" />
+         </children>
+      </VBox>
+      <Button fx:id="confirmButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#eventGetDescriptionForInvoice" text="Confirm" />
+      <Button fx:id="abortButton" layoutX="193.0" layoutY="359.0" mnemonicParsing="false" onAction="#eventClose" text="Abort" />
+   </children>
+</AnchorPane>

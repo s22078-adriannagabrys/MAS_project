@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pharmacy.Action.Sale.PrescriptionController">
+   <children>
+      <Label fx:id="prescriptionLebel" layoutX="253.0" layoutY="14.0" text="Prescription">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="98.0" layoutY="74.0" prefHeight="200.0" prefWidth="405.0">
+         <children>
+            <Label fx:id="prescriptionListLabel" text="Prescription" />
+            <ListView fx:id="prescriptionList" prefHeight="183.0" prefWidth="257.0" />
+         </children>
+      </VBox>
+      <Button fx:id="addButton" layoutX="408.0" layoutY="336.0" mnemonicParsing="false" onAction="#clickAddPrescribedDrugToSaleList" text="Add to sale list" />
+      <Button fx:id="finishButton" layoutX="341.0" layoutY="336.0" mnemonicParsing="false" onAction="#eventClose" text="Finish" />
+      <VBox layoutX="98.0" layoutY="273.0" prefHeight="68.0" prefWidth="100.0">
+         <children>
+            <RadioButton fx:id="refundRadioButton" mnemonicParsing="false" onAction="#eventIsRefunded" text="Refund" />
+            <ComboBox fx:id="refundComboBox" disable="true" prefWidth="150.0" />
+            <RadioButton fx:id="noRefundRadioButton" mnemonicParsing="false" selected="true" text="No refund" />
+         </children>
+      </VBox>
+      <VBox layoutX="212.0" layoutY="273.0" prefHeight="46.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="amountLabel" prefHeight="17.0" prefWidth="100.0" text="Select amount" />
+            <TextField fx:id="amountTextField" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pharmacy.Action.Sale.SaleController">
+   <children>
+      <VBox layoutX="67.0" layoutY="66.0" prefHeight="134.0" prefWidth="466.0">
+         <children>
+            <Label fx:id="otcListLabel" text="List of drugs:" />
+            <ListView fx:id="allDrugsList" prefHeight="183.0" prefWidth="466.0" />
+         </children>
+      </VBox>
+      <Label fx:id="saleLabel" layoutX="277.0" layoutY="21.0" prefHeight="17.0" prefWidth="47.0" text="Sale">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <VBox layoutX="68.0" layoutY="255.0" prefHeight="144.0" prefWidth="466.0">
+         <children>
+            <Label fx:id="saleListLabel" text="Sales list:" />
+            <ListView fx:id="saleList" prefHeight="125.0" prefWidth="466.0" />
+         </children>
+      </VBox>
+      <Button fx:id="addButton" layoutX="434.0" layoutY="200.0" mnemonicParsing="false" onAction="#addNonPrescribedDrugToSaleList" text="Add to sales list" />
+      <Button fx:id="removeButton" layoutX="399.0" layoutY="399.0" mnemonicParsing="false" onAction="#removeDrugFromSaleList" text="Remove from sales list" />
+      <Button fx:id="confirmButton" layoutX="474.0" layoutY="471.0" mnemonicParsing="false" onAction="#eventCheckTheDocumentType" text="Confirm" />
+      <Button fx:id="addPrescribedDrugButton" layoutX="332.0" layoutY="471.0" mnemonicParsing="false" onAction="#eventCheckPrescriptionCode" text="Realise prescription" />
+      <VBox layoutX="201.0" layoutY="399.0" prefHeight="66.0" prefWidth="110.0">
+         <children>
+            <Label fx:id="priceLabel" text="Price" />
+            <TextField fx:id="priceTextField" editable="false" />
+         </children>
+      </VBox>
+      <VBox layoutX="67.0" layoutY="399.0" prefHeight="66.0" prefWidth="112.0">
+         <children>
+            <Label text="Method of payment" />
+            <ChoiceBox fx:id="methodOfPaymentComboBox" prefWidth="150.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="67.0" layoutY="200.0" prefHeight="36.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="amountLabel" text="Amount" />
+            <TextField fx:id="amountTextField" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

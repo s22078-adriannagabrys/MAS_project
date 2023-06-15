@@ -69,7 +69,7 @@ public class SaleController {
 
     public void setUser(CommunityPharmacyEmployee employee){
         this.employee = employee;
-        sale = new Sale(LocalDate.now(), this.employee);
+        sale = new Sale(LocalDate.now(), employee);
     }
 
     public void addDrugFromPrescriptionToSaleList(String refundLevel, int selectedAmount, String drugName) {

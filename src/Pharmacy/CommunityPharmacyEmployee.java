@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommunityPharmacyEmployee extends ObjectPlus implements Serializable {
-    private int id;
+    private String id;
     private String name; //atrybut powtarzalny
     private String surName; //atrybut prosty, pojedynczy
     private String phoneNumber;
@@ -19,7 +19,7 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
     private LocalDate dateOfDismissal; //atrybut opcjonalny
     private LocalDate dateOfEmployment; //atrybut złożony
 
-    public CommunityPharmacyEmployee(int id, String name, String surName, String phoneNumber, LocalDate birthDate, double salaryPerHour, LocalDate dateOfEmployment) {
+    public CommunityPharmacyEmployee(String id, String name, String surName, String phoneNumber, LocalDate birthDate, double salaryPerHour, LocalDate dateOfEmployment) {
         super();
         this.id = id;
         this.name = name;
@@ -64,7 +64,11 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
         return dateOfEmployment;
     }
 
-    public int getId() {
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -100,11 +104,6 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
     }
     PharmacyManager manager;
     public void removeManager(){
-//        try {
-//            ObjectPlus.removeExtent(manager);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
         manager = null;
     }
 
@@ -168,6 +167,10 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
                 compoundedDrugs.remove(toRemove);
                 toRemove.removePharmacist();
             }
+        }
+
+        public List<CompoundedDrug> getCompoundedDrugs() {
+            return compoundedDrugs;
         }
     }
 

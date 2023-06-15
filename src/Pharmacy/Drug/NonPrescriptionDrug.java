@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class NonPrescriptionDrug extends Drug implements Serializable {
     String leaflet;
 
-    public NonPrescriptionDrug(int drugID, String drugName, double price) {
-        super(drugID, drugName, price);
+    public NonPrescriptionDrug(String drugName, double price) {
+        super(drugName, price);
     }
 
 

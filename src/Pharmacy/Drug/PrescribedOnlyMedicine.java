@@ -6,8 +6,8 @@ public class PrescribedOnlyMedicine extends Drug implements Serializable {
     int licenceNumber;
     String theSummaryOfTheMedicinalProduct;
 
-    public PrescribedOnlyMedicine(int drugID, String drugName, double price, int licenceNumber) {
-        super(drugID, drugName, price);
+    public PrescribedOnlyMedicine( String drugName, double price, int licenceNumber) {
+        super( drugName, price);
         this.licenceNumber = licenceNumber;
     }
 

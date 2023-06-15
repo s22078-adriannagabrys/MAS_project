@@ -19,10 +19,11 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Main extends Application {
-    private static CommunityPharmacyEmployee pharmacyEmployee;
-    private static CommunityPharmacyEmployee pharmacyEmployee2;
+    public static CommunityPharmacyEmployee pharmacyEmployee;
+    public static CommunityPharmacyEmployee pharmacyEmployee2;
 
     @Override
     public void start(Stage primaryStage) {
@@ -30,11 +31,15 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SaleGUI.fxml"));
             Parent root = loader.load();
             SaleController controller = loader.getController();
-            controller.setUser(pharmacyEmployee);
+            for (CommunityPharmacyEmployee employee : ObjectPlus.getExtent(CommunityPharmacyEmployee.class)) {
+                if(employee.getPhoneNumber().equals("123456789")){
+                    controller.setUser(employee);
+                }
+            }
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -45,17 +50,18 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        try{
-//            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try{
+            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         launch();
     }
 
     public static void initData() throws Exception {
-        pharmacyEmployee = new CommunityPharmacyEmployee(1, "Anna", "Nowak", "123456789", LocalDate.of(2000, 12, 21), 31.00, LocalDate.of(2005, 12, 21));
-        pharmacyEmployee2 = new CommunityPharmacyEmployee(2, "Jolanta", "Nowak", "493728436", LocalDate.of(2000, 12, 21), 28.00, LocalDate.of(2017, 12, 21));
+
+        pharmacyEmployee = new CommunityPharmacyEmployee(UUID.randomUUID().toString(), "Anna", "Nowak", "123456789", LocalDate.of(2000, 12, 21), 31.00, LocalDate.of(2005, 12, 21));
+        pharmacyEmployee2 = new CommunityPharmacyEmployee(UUID.randomUUID().toString(), "Jolanta", "Nowak", "493728436", LocalDate.of(2000, 12, 21), 28.00, LocalDate.of(2017, 12, 21));
 
 
         pharmacyEmployee.changeClassToPharmacist(12345);
@@ -66,16 +72,16 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        Drug drug1 = new NonPrescriptionDrug(1, "Ibuprofen", 3.00);
-        Drug drug2 = new NonPrescriptionDrug(2, "Paracetamol", 5.46);
-        Drug drug3 = new NonPrescriptionDrug(3, "Aspirin", 8.00);
-        Drug drug4 = new NonPrescriptionDrug(4, "Magne B6", 16.00);
-        Drug drug5 = new NonPrescriptionDrug(5, "Gripex", 14.00);
-        Drug drug6 = new PrescribedOnlyMedicine(6, "Amoxicillin", 13.59, 1234);
-        Drug drug7 = new PrescribedOnlyMedicine(7, "Lamitrin", 21.99, 4567);
-        Drug drug8 = new PrescribedOnlyMedicine(8, "Acard", 40.89, 7890);
-        Drug drug9 = new PrescribedOnlyMedicine(9, "Minovivax", 23.99, 4345);
-        Drug drug10 = new CompoundedDrug(10, "Labetalol oral suspension", 23.55, "solution", "box", 10, new HashMap<String, Integer>(){{
+        NonPrescriptionDrug drug1 = new NonPrescriptionDrug( "Ibuprofen", 3.00);
+        NonPrescriptionDrug drug2 = new NonPrescriptionDrug( "Paracetamol", 5.46);
+        NonPrescriptionDrug drug3 = new NonPrescriptionDrug( "Aspirin", 8.00);
+        NonPrescriptionDrug drug4 = new NonPrescriptionDrug( "Magne B6", 16.00);
+        NonPrescriptionDrug drug5 = new NonPrescriptionDrug( "Gripex", 14.00);
+        PrescribedOnlyMedicine drug6 = new PrescribedOnlyMedicine( "Amoxicillin", 13.59, 1234);
+        PrescribedOnlyMedicine drug7 = new PrescribedOnlyMedicine( "Lamitrin", 21.99, 4567);
+        PrescribedOnlyMedicine drug8 = new PrescribedOnlyMedicine( "Acard", 40.89, 7890);
+        PrescribedOnlyMedicine drug9 = new PrescribedOnlyMedicine( "Minovivax", 23.99, 4345);
+        CompoundedDrug drug10 = new CompoundedDrug( "Labetalol oral suspension", 23.55, "solution", "box", 10, new HashMap<String, Integer>(){{
             put("Lactose", 5);
             put("Sugar", 10);
             put("Salt", 3);
@@ -95,6 +101,7 @@ public class Main extends Application {
         StockItem stockItem8 = new StockItem(5, warehouseUpdate, drug8);
         StockItem stockItem9 = new StockItem(5, warehouseUpdate, drug9);
         StockItem stockItem10 = new StockItem(5, warehouseUpdate, drug10);
+
 
         try{
             ObjectPlus.writeExtents(new ObjectOutputStream(new FileOutputStream("Pharmacy.txt")));

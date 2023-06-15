@@ -12,8 +12,8 @@ public class CompoundedDrug extends Drug implements Serializable {
     private Map<String, Integer> ingredients;
     private CommunityPharmacyEmployee.Pharmacist pharmacist;
 
-    public CompoundedDrug(int drugID, String drugName, double price, String formula, String typeOfPackage, double dose, Map<String, Integer> ingredients, CommunityPharmacyEmployee.Pharmacist pharmacist) {
-        super(drugID, drugName, price);
+    public CompoundedDrug(String drugName, double price, String formula, String typeOfPackage, double dose, Map<String, Integer> ingredients, CommunityPharmacyEmployee.Pharmacist pharmacist) {
+        super(drugName, price);
         this.formula = formula;
         this.typeOfPackage = typeOfPackage;
         this.dose = dose;
@@ -27,9 +27,13 @@ public class CompoundedDrug extends Drug implements Serializable {
     }
 
     public void removePharmacist() {
-        pharmacist = null;
         pharmacist.removeCompoundedDrug(this);
+        pharmacist = null;
 
+    }
+
+    public CommunityPharmacyEmployee.Pharmacist getPharmacist() {
+        return pharmacist;
     }
 
     @Override

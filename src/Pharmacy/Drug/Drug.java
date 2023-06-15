@@ -7,17 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Drug extends ObjectPlus implements Serializable {
+    private static int counter = 0;
     protected String drugName;
     protected int drugID;
     protected double price;
 
     private List<StockItem> stockItems = new ArrayList<>();
 
-    protected Drug(int drugID, String drugName, double price) {
+    protected Drug(String drugName, double price) {
         super();
         this.drugName = drugName;
-        this.drugID = drugID;
+        this.drugID = generateUniqueId();
         this.price = price;
+    }
+
+    private int generateUniqueId() {
+        counter++;
+        return counter;
     }
 
     public String getDrugName() {

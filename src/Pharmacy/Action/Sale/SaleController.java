@@ -43,7 +43,9 @@ public class SaleController {
 
     @FXML
     void initialize() {
-        //sale = new Sale(Sale.getMaxID(), LocalDate.of(2000, 11, 16));
+
+        sale = new Sale(LocalDate.now());
+
         registeredPrescriptions = new RegisteredPrescriptions();
         try {
             for (Drug drug : ObjectPlus.getExtent(NonPrescriptionDrug.class)) {
@@ -65,6 +67,7 @@ public class SaleController {
         );
 
     }
+
     public void addDrugFromPrescriptionToSaleList(String refundLevel, int selectedAmount, String drugName) {
         isDrugOnList = false;
 

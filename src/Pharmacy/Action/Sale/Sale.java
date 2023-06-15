@@ -13,8 +13,8 @@ public class Sale extends Action implements Serializable {
     private String methodOfPayment;
     private List<Document> documents = new ArrayList<>();
 
-    public Sale(int id, LocalDate date) {
-        super(id, date);
+    public Sale(LocalDate date) {
+        super(date);
     }
     public void setMethodOfPayment(String methodOfPayment) {
         this.methodOfPayment = methodOfPayment;

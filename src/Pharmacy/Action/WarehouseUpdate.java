@@ -9,8 +9,8 @@ import java.time.LocalDate;
 public class WarehouseUpdate extends Action implements Serializable {
     private String description;
 
-    public WarehouseUpdate(int id, LocalDate date, String description) {
-        super(id, date);
+    public WarehouseUpdate(LocalDate date, String description) {
+        super(date);
         this.description = description;
     }
 }

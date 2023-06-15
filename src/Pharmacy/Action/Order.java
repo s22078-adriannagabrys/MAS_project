@@ -22,8 +22,8 @@ public class Order extends Action implements Serializable {
     private String supplier;
     private Status status;
 
-    public Order(int id, LocalDate date, String supplier, Status status) {
-        super(id, date);
+    public Order(LocalDate date, String supplier, Status status) {
+        super(date);
         this.supplier = supplier;
         this.status = status;
     }

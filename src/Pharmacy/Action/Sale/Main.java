@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Main extends Application {
 
@@ -36,13 +37,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        initData();
-//        try{
-//            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        launch();
+        //initData();
+        try{
+            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        launch();
     }
 
     public static void initData(){
@@ -84,9 +85,9 @@ public class Main extends Application {
 
 
         //czy tu zrobić puste konstruktory
-        Action action = new Action(1, LocalDate.now());
-        Order order = new Order(1, LocalDate.now(), "Hasco", Order.Status.NEW);
-        WarehouseUpdate warehouseUpdate = new WarehouseUpdate(2, LocalDate.now(), "Initial");
+        Action action = new Action(LocalDate.now());
+        Order order = new Order(LocalDate.now(), "Hasco", Order.Status.NEW);
+        WarehouseUpdate warehouseUpdate = new WarehouseUpdate(LocalDate.now(), "Initial");
         warehouseUpdate.addStockItem(stockItem1);
         warehouseUpdate.addStockItem(stockItem2);
         warehouseUpdate.addStockItem(stockItem3);

@@ -8,9 +8,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Action extends ObjectPlus implements Serializable {
-    private int id;
+    private String id;
     private LocalDate date;
     private double price;
 
@@ -18,20 +19,10 @@ public class Action extends ObjectPlus implements Serializable {
     private CommunityPharmacyEmployee communityPharmacyEmployee;
 
 
-    public Action(int id, LocalDate date) {
+    public Action(LocalDate date) {
         super();
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
         this.date = date;
-    }
-
-    public static int getMaxID() throws ClassNotFoundException {
-        int newId = 0;
-        for(Sale sale : ObjectPlus.getExtent(Sale.class)){
-            if(sale.getId() > newId){
-                newId = sale.getId();
-            }
-        }
-        return newId;
     }
 
     public StockItem registerDrug(Drug drug, int amount, String refundLevel){
@@ -88,17 +79,8 @@ public class Action extends ObjectPlus implements Serializable {
         return communityPharmacyEmployee;
     }
 
-    //todo
     public boolean isReady(){
         return true;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getDate() {

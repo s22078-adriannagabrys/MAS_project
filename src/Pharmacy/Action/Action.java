@@ -1,6 +1,5 @@
 package Pharmacy.Action;
 
-import Pharmacy.Action.Sale.Sale;
 import Pharmacy.Drug.*;
 import Pharmacy.*;
 
@@ -19,17 +18,16 @@ public class Action extends ObjectPlus implements Serializable {
     private CommunityPharmacyEmployee communityPharmacyEmployee;
 
 
-    public Action(LocalDate date) {
+    public Action(LocalDate date, CommunityPharmacyEmployee communityPharmacyEmployee) {
         super();
         this.id = UUID.randomUUID().toString();
         this.date = date;
+        addEmployee(communityPharmacyEmployee);
     }
 
     public StockItem registerDrug(Drug drug, int amount, String refundLevel){
-        StockItem stockItem = new StockItem(amount);
+        StockItem stockItem = new StockItem(amount, this, drug);
         stockItem.setRefundLevel(refundLevel);
-        addStockItem(stockItem);
-        stockItem.addDrug(drug);
         return stockItem;
     }
 

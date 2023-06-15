@@ -1,7 +1,6 @@
 package Pharmacy.Action.Sale;
 
 import Pharmacy.Prescription.Prescription;
-import Pharmacy.Prescription.RegisteredPrescriptions;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -16,7 +15,6 @@ public class PrescriptionController {
     public RadioButton noRefundRadioButton;
     public Label amountLabel;
     public TextField amountTextField;
-    private RegisteredPrescriptions registeredPrescriptions;
     private SaleController saleController;
     private String code;
 
@@ -45,7 +43,6 @@ public class PrescriptionController {
 
     public void clickAddPrescribedDrugToSaleList(ActionEvent actionEvent) {
         System.out.println(saleController.getRegisteredPrescriptions().getAllRegisteredPrescriptions());
-        int selectedID;
         if(!this.prescriptionList.getSelectionModel().isEmpty() && !amountTextField.getText().isEmpty()) {
             String selectedAmount = amountTextField.getText();
             Prescription prescription = (Prescription) prescriptionList.getSelectionModel().getSelectedItem();

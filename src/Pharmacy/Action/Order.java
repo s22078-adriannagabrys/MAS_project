@@ -1,6 +1,7 @@
 package Pharmacy.Action;
 
 import Pharmacy.Action.Action;
+import Pharmacy.CommunityPharmacyEmployee;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class Order extends Action implements Serializable {
     private String supplier;
     private Status status;
 
-    public Order(LocalDate date, String supplier, Status status) {
-        super(date);
+    public Order(LocalDate date, CommunityPharmacyEmployee employee, String supplier, Status status) {
+        super(date, employee);
         this.supplier = supplier;
         this.status = status;
     }

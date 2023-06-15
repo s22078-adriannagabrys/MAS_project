@@ -9,7 +9,6 @@ import Pharmacy.Drug.Drug;
 import Pharmacy.Drug.NonPrescriptionDrug;
 import Pharmacy.Drug.PrescribedOnlyMedicine;
 import Pharmacy.ObjectPlus;
-import Pharmacy.Prescription.RegisteredPrescriptions;
 import Pharmacy.StockItem;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,14 +19,18 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class Main extends Application {
+    private static CommunityPharmacyEmployee pharmacyEmployee;
+    private static CommunityPharmacyEmployee pharmacyEmployee2;
 
     @Override
     public void start(Stage primaryStage) {
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("SaleGUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SaleGUI.fxml"));
+            Parent root = loader.load();
+            SaleController controller = loader.getController();
+            controller.setUser(pharmacyEmployee);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -37,16 +40,32 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        initData();
+        try {
+            initData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        try{
 //            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
 //        } catch (IOException | ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
-//        launch();
+        launch();
     }
 
-    public static void initData(){
+    public static void initData() throws Exception {
+        pharmacyEmployee = new CommunityPharmacyEmployee(1, "Anna", "Nowak", "123456789", LocalDate.of(2000, 12, 21), 31.00, LocalDate.of(2005, 12, 21));
+        pharmacyEmployee2 = new CommunityPharmacyEmployee(2, "Jolanta", "Nowak", "493728436", LocalDate.of(2000, 12, 21), 28.00, LocalDate.of(2017, 12, 21));
+
+
+        pharmacyEmployee.changeClassToPharmacist(12345);
+        pharmacyEmployee2.changeClassToPharmacist(23456);
+        try {
+            pharmacyEmployee2.changeClassToManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Drug drug1 = new NonPrescriptionDrug(1, "Ibuprofen", 3.00);
         Drug drug2 = new NonPrescriptionDrug(2, "Paracetamol", 5.46);
         Drug drug3 = new NonPrescriptionDrug(3, "Aspirin", 8.00);
@@ -60,63 +79,22 @@ public class Main extends Application {
             put("Lactose", 5);
             put("Sugar", 10);
             put("Salt", 3);
-        }});
+        }}, pharmacyEmployee.getPharmacists());
 
-        StockItem stockItem1 = new StockItem(5);
-        StockItem stockItem2 = new StockItem(5);
-        StockItem stockItem3 = new StockItem(5);
-        StockItem stockItem4 = new StockItem(5);
-        StockItem stockItem5 = new StockItem(5);
-        StockItem stockItem6 = new StockItem(5);
-        StockItem stockItem7 = new StockItem(5);
-        StockItem stockItem8 = new StockItem(5);
-        StockItem stockItem9 = new StockItem(5);
-        StockItem stockItem10 = new StockItem(5);
-        drug1.addStockItem(stockItem1);
-        drug2.addStockItem(stockItem2);
-        drug3.addStockItem(stockItem3);
-        drug4.addStockItem(stockItem4);
-        drug5.addStockItem(stockItem5);
-        drug6.addStockItem(stockItem6);
-        drug7.addStockItem(stockItem7);
-        drug8.addStockItem(stockItem8);
-        drug9.addStockItem(stockItem9);
-        drug10.addStockItem(stockItem10);
+        Action action = new Action(LocalDate.now(), pharmacyEmployee);
+        Order order = new Order(LocalDate.now(),pharmacyEmployee,"Hasco", Order.Status.NEW);
+        WarehouseUpdate warehouseUpdate = new WarehouseUpdate(LocalDate.now(),pharmacyEmployee, "Initial");
 
-
-        //czy tu zrobić puste konstruktory
-        Action action = new Action(LocalDate.now());
-        Order order = new Order(LocalDate.now(), "Hasco", Order.Status.NEW);
-        WarehouseUpdate warehouseUpdate = new WarehouseUpdate(LocalDate.now(), "Initial");
-        warehouseUpdate.addStockItem(stockItem1);
-        warehouseUpdate.addStockItem(stockItem2);
-        warehouseUpdate.addStockItem(stockItem3);
-        warehouseUpdate.addStockItem(stockItem4);
-        warehouseUpdate.addStockItem(stockItem5);
-        warehouseUpdate.addStockItem(stockItem6);
-        warehouseUpdate.addStockItem(stockItem7);
-        warehouseUpdate.addStockItem(stockItem8);
-        warehouseUpdate.addStockItem(stockItem9);
-        warehouseUpdate.addStockItem(stockItem10);
-
-        CommunityPharmacyEmployee pharmacyEmployee = new CommunityPharmacyEmployee(1, "Anna", "Nowak", "123456789", LocalDate.of(2000, 12, 21), 31.00, LocalDate.of(2005, 12, 21));
-        CommunityPharmacyEmployee pharmacyEmployee2 = new CommunityPharmacyEmployee(2, "Jolanta", "Nowak", "493728436", LocalDate.of(2000, 12, 21), 28.00, LocalDate.of(2017, 12, 21));
-
-        pharmacyEmployee.addAction(order);
-        pharmacyEmployee.addAction(warehouseUpdate);
-
-        pharmacyEmployee.changeClassToPharmacist(12345);
-        pharmacyEmployee2.changeClassToPharmacist(23456);
-        try {
-            pharmacyEmployee2.changeClassToManager();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try{
-            pharmacyEmployee.getPharmacists().addCompoundedDrug((CompoundedDrug) drug10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        StockItem stockItem1 = new StockItem(5, warehouseUpdate, drug1);
+        StockItem stockItem2 = new StockItem(5, warehouseUpdate, drug2);
+        StockItem stockItem3 = new StockItem(5, warehouseUpdate, drug3);
+        StockItem stockItem4 = new StockItem(5, warehouseUpdate, drug4);
+        StockItem stockItem5 = new StockItem(5, warehouseUpdate, drug5);
+        StockItem stockItem6 = new StockItem(5, warehouseUpdate, drug6);
+        StockItem stockItem7 = new StockItem(5, warehouseUpdate, drug7);
+        StockItem stockItem8 = new StockItem(5, warehouseUpdate, drug8);
+        StockItem stockItem9 = new StockItem(5, warehouseUpdate, drug9);
+        StockItem stockItem10 = new StockItem(5, warehouseUpdate, drug10);
 
         try{
             ObjectPlus.writeExtents(new ObjectOutputStream(new FileOutputStream("Pharmacy.txt")));

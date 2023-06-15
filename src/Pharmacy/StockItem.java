@@ -11,27 +11,29 @@ public class StockItem extends ObjectPlus implements Serializable {
     private Drug drug;
     private Action action;
 
-    public StockItem(int amount) {
+    public StockItem(int amount, Action action, Drug drug) {
         super();
         this.amount = amount;
+        addAction(action);
+        addDrug(drug);
     }
 
     public void addAction(Action newAction) {
-        action = newAction;
+        this.action = newAction;
         action.addStockItem(this);
     }
 
     public void removeAction() {
-        action.removeStockItem(this);
+        this.action.removeStockItem(this);
         action = null;
     }
     public void addDrug(Drug newDrug) {
-        drug = newDrug;
+        this.drug = newDrug;
         drug.addStockItem(this);
     }
 
     public void removeDrug() {
-        drug.removeStockItem(this);
+        this.drug.removeStockItem(this);
         drug = null;
     }
 

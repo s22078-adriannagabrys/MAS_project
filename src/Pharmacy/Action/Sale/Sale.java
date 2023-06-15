@@ -1,6 +1,7 @@
 package Pharmacy.Action.Sale;
 
 import Pharmacy.Action.*;
+import Pharmacy.CommunityPharmacyEmployee;
 import Pharmacy.ObjectPlus;
 import Pharmacy.Prescription.RegisteredPrescriptions;
 
@@ -14,8 +15,9 @@ public class Sale extends Action implements Serializable {
     private String methodOfPayment;
     private List<Document> documents = new ArrayList<>();
 
-    public Sale(LocalDate date) {
-        super(date);
+    public Sale(LocalDate date, CommunityPharmacyEmployee employee) {
+        super(date, employee);
+
     }
     public void setMethodOfPayment(String methodOfPayment) {
         this.methodOfPayment = methodOfPayment;
@@ -45,6 +47,7 @@ public class Sale extends Action implements Serializable {
 
         return documents.isEmpty() ? info : info + documentsInfo;
     }
+
     public enum DocumentType {
         INVOICE("Invoice"),
         PAYMENTCONFIRMATION("Payment confirmation");

@@ -17,6 +17,6 @@ public class NonPrescriptionDrug extends Drug implements Serializable {
 
     @Override
     public String toString() {
-        return "Nr: " + drugID + " " + drugName + " Amount: " + countStock() + " Price: " + price;
+        return "Nr: " + drugID + " " + drugName + " Amount: " + getStock() + " Price: " + price;
     }
 }

@@ -1,5 +1,6 @@
 package Pharmacy.Action.Sale;
 
+import Pharmacy.CommunityPharmacyEmployee;
 import Pharmacy.Drug.*;
 import Pharmacy.ObjectPlus;
 import Pharmacy.Prescription.*;
@@ -10,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileOutputStream;
@@ -40,11 +40,10 @@ public class SaleController {
     private RegisteredPrescriptions registeredPrescriptions;
     private Sale sale;
     public boolean isDrugOnList;
+    private CommunityPharmacyEmployee employee;
 
     @FXML
     void initialize() {
-
-        sale = new Sale(LocalDate.now());
 
         registeredPrescriptions = new RegisteredPrescriptions();
         try {
@@ -66,6 +65,11 @@ public class SaleController {
                 "Card"
         );
 
+    }
+
+    public void setUser(CommunityPharmacyEmployee employee){
+        this.employee = employee;
+        sale = new Sale(LocalDate.now(), this.employee);
     }
 
     public void addDrugFromPrescriptionToSaleList(String refundLevel, int selectedAmount, String drugName) {
@@ -98,7 +102,7 @@ public class SaleController {
                 String refundLevel = "No refund";
                 int selectedAmount = Integer.parseInt("-"+amountTextField.getText());
                 //The selected amount is out of range
-                if(!amountTextField.getText().matches("\\d+") || Integer.parseInt(amountTextField.getText()) > newDrug.countStock() || Integer.parseInt(amountTextField.getText()) <= 0){
+                if(!amountTextField.getText().matches("\\d+") || Integer.parseInt(amountTextField.getText()) > newDrug.getStock() || Integer.parseInt(amountTextField.getText()) <= 0){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
                     alert.setContentText("Amount is out of range!");

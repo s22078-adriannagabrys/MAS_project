@@ -48,7 +48,7 @@ public abstract class Drug extends ObjectPlus implements Serializable {
         }
     }
 
-    public int countStock(){
+    public int getStock(){
         int stock = 0;
         for(int i = 0; i< stockItems.size(); i++){
             stock+= stockItems.get(i).getAmount();
@@ -62,6 +62,6 @@ public abstract class Drug extends ObjectPlus implements Serializable {
 
     @Override
     public String toString() {
-        return "Nr: " + drugID + " " + drugName + " Amount: " + countStock() + " Price: " + price;
+        return "Nr: " + drugID + " " + drugName + " Amount: " + getStock() + " Price: " + price;
     }
 }

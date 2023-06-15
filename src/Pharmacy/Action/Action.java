@@ -61,26 +61,19 @@ public class Action extends ObjectPlus implements Serializable {
         return stockItems;
     }
 
-    public StockItem findStockItemForSelectedDrug (String drugName, String refundLevel){
-        if (getStockItems() == null) {
-            return null;
-        }
 
-        for (StockItem stockItem : getStockItems()) {
-            if (stockItem.getDrug().getDrugName().equals(drugName) && stockItem.getAction().equals(this) && stockItem.getRefundLevel().equals(refundLevel)) {
-                return stockItem;
-            }
+    public double calculatePrice() {
+        double currentPrice = 0;
+        StockItem currentStockItem;
+        for (int i = 0; i < getStockItems().size(); i++) {
+            currentStockItem = getStockItems().get(i);
+            currentPrice += currentStockItem.calculatePriceWithRefund();
         }
-
-        return null;
+        return currentPrice;
     }
 
     public CommunityPharmacyEmployee getCommunityPharmacyEmployee() {
         return communityPharmacyEmployee;
-    }
-
-    public boolean isReady(){
-        return true;
     }
 
     public LocalDate getDate() {

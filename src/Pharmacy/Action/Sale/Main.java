@@ -37,13 +37,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //initData();
-        try{
-            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        launch();
+        initData();
+//        try{
+//            ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        launch();
     }
 
     public static void initData(){

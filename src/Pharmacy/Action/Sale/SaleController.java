@@ -131,7 +131,7 @@ public class SaleController {
             saleList.getItems().add(stockItem);
         }
         //calculate price
-        priceTextField.setText(calculatePrice(stockItem, "add"));
+        priceTextField.setText(String.valueOf(sale.calculatePrice()));
     }
 
     @FXML
@@ -145,30 +145,11 @@ public class SaleController {
                 prescriptionController.getDrugBack(stockItem.getDrug().getDrugName(), Math.abs(stockItem.getAmount()));
             }
             saleList.getItems().remove(stockItem);
-            stockItem = sale.registerDrug(stockItem.getDrug(), Math.abs(stockItem.getAmount()), stockItem.getRefundLevel());
+            sale.removeStockItem(stockItem);
+            stockItem.removeDrug();
             allDrugsList.refresh();
-            priceTextField.setText(calculatePrice(stockItem, "remove"));
+            priceTextField.setText(String.valueOf(sale.calculatePrice()));
         }
-    }
-
-    private String calculatePrice(StockItem stockItem, String flag) {
-        double currentPrice = 0;
-        StockItem currentStockItem;
-
-        switch (flag){
-            case "add":
-                for (int i = 0; i < saleList.getItems().size(); i++) {
-                    currentStockItem = (StockItem) saleList.getItems().get(i);
-                    currentPrice += currentStockItem.calculatePriceWithRefund();
-                }
-                break;
-            case "remove":
-                currentPrice = Double.parseDouble(priceTextField.getText());
-                currentPrice -= stockItem.calculatePriceWithRefund();
-                break;
-        }
-
-        return String.valueOf(currentPrice);
     }
 
     public void eventCheckPrescriptionCode(ActionEvent actionEvent) throws IOException {

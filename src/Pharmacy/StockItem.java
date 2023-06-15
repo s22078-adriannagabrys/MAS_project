@@ -36,7 +36,6 @@ public class StockItem extends ObjectPlus implements Serializable {
     }
 
     public double calculatePriceWithRefund() {
-        //todo
         double price = drug.getPrice() * Math.abs(amount);
         switch (refundLevel){
             case "Free":

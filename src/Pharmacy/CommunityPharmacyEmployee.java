@@ -96,9 +96,15 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
     Pharmacist pharmacists;
     public void removePharmacist(){
         pharmacists = null;
+
     }
     PharmacyManager manager;
     public void removeManager(){
+//        try {
+//            ObjectPlus.removeExtent(manager);
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         manager = null;
     }
 
@@ -126,8 +132,6 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
         } else throw new Exception("Is not Pharmacist");
     }
     public class Pharmacist implements Serializable{
-        //todo
-        //amountOfDrugs
         private int diplomaIndex;
         private double degreeBonus;
 

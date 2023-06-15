@@ -28,11 +28,10 @@ public class Order extends Action implements Serializable {
         this.status = status;
     }
 
-    public void calculatePrice(){
-
-    }
     public boolean isReady(){
-
+        if(status == Status.PREPARED){
+            return true;
+        }
         return false;
     }
 }

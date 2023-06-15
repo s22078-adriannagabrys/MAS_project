@@ -71,9 +71,7 @@ public class PrescriptionController {
                     }
                     prescriptionList.refresh();
                 }
-
             }
-
         }
         System.out.println(saleController.getRegisteredPrescriptions().getAllRegisteredPrescriptions());
     }

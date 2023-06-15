@@ -44,6 +44,12 @@ public abstract class ObjectPlus implements Serializable {
         throw new ClassNotFoundException(String.format("%s. Stored extents: %s", type.toString(), allExtents.keySet()));
     }
 
+    public static <T> void removeExtent(T object) throws ClassNotFoundException {
+        List<T> extent = (List<T>) getExtent(object.getClass());
+        extent.remove(object);
+    }
+
+
     public static void showExtent(Class theClass) throws Exception {
         List extent = null;
 

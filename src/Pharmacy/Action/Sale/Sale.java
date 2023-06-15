@@ -2,6 +2,7 @@ package Pharmacy.Action.Sale;
 
 import Pharmacy.Action.*;
 import Pharmacy.ObjectPlus;
+import Pharmacy.Prescription.RegisteredPrescriptions;
 
 import java.io.Serializable;
 import java.time.LocalDate;

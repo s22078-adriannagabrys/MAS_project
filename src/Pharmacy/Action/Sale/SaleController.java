@@ -3,7 +3,7 @@ package Pharmacy.Action.Sale;
 import Pharmacy.CommunityPharmacyEmployee;
 import Pharmacy.Drug.*;
 import Pharmacy.ObjectPlus;
-import Pharmacy.Prescription.*;
+import Pharmacy.Prescription.RegisteredPrescriptions;
 import Pharmacy.StockItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +20,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * The controller class for managing sale.
+ */
 public class SaleController {
 
     public ListView saleList;
@@ -42,10 +45,14 @@ public class SaleController {
     public boolean isDrugOnList;
     private CommunityPharmacyEmployee employee;
 
+    /**
+     * Initializes the SaleController.
+     */
     @FXML
     void initialize() {
 
         registeredPrescriptions = new RegisteredPrescriptions();
+        // Add all drugs from extent
         try {
             for (Drug drug : ObjectPlus.getExtent(NonPrescriptionDrug.class)) {
                 allDrugsList.getItems().add(drug);
@@ -60,6 +67,7 @@ public class SaleController {
             e.printStackTrace();
         }
 
+        // Add payment methods to methodOfPaymentComboBox
         methodOfPaymentComboBox.getItems().addAll(
                 "Cash",
                 "Card"
@@ -67,19 +75,29 @@ public class SaleController {
 
     }
 
+    /**
+     * Sets the user (employee) for the Sale
+     * @param employee
+     */
     public void setUser(CommunityPharmacyEmployee employee){
         this.employee = employee;
         sale = new Sale(LocalDate.now(), employee);
     }
 
+    /**
+     * Adds a drug from a prescription to the sale list (can be either POM or Compounded drug)
+     * @param refundLevel
+     * @param selectedAmount
+     * @param drugName
+     */
     public void addDrugFromPrescriptionToSaleList(String refundLevel, int selectedAmount, String drugName) {
         isDrugOnList = false;
-
         Drug newDrug = null;
-        //Check if drug with this name exists
+
+        //Check if drug with this name exists and has stock
         for(int i = 0; i < allDrugsList.getItems().size(); i++) {
             newDrug = (Drug) allDrugsList.getItems().get(i);
-            if(newDrug.getDrugName().equals(drugName)){
+            if(newDrug.getDrugName().equals(drugName) && newDrug.getStock() >= Math.abs(selectedAmount)){
                 isDrugOnList = true;
                 break;
             }
@@ -89,34 +107,48 @@ public class SaleController {
         }
     }
 
+    /**
+     * Adds a non-prescribed drug to the sale list
+     * @param actionEvent
+     */
     public void addNonPrescribedDrugToSaleList(ActionEvent actionEvent){
+        //Check if any drug is selected and the amount is selected
         if(!amountTextField.getText().isEmpty() && !allDrugsList.getSelectionModel().isEmpty()){
             Drug newDrug = (Drug) allDrugsList.getSelectionModel().getSelectedItem();
-            //The selected drug is on prescription
+            //The selected drug is on prescription (cannot add without prescription)
             if(!newDrug.getClass().equals(NonPrescriptionDrug.class)){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("You are not allowed to add without prescription!");
                 alert.showAndWait();
             }else{
+                //Since it is the non-prescribed drug there is no refund
                 String refundLevel = "No refund";
-                int selectedAmount = Integer.parseInt("-"+amountTextField.getText());
-                //The selected amount is out of range
+                int selectedAmount = -Integer.parseInt(amountTextField.getText());
+                //The selected amount is out of range, or is not number
                 if(!amountTextField.getText().matches("\\d+") || Integer.parseInt(amountTextField.getText()) > newDrug.getStock() || Integer.parseInt(amountTextField.getText()) <= 0){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
                     alert.setContentText("Amount is out of range!");
                     alert.showAndWait();
                 }else {
+                    //adding drug to sale list
                         addDrugToSaleList(refundLevel, selectedAmount, newDrug);
                     }
                 }
         }
     }
 
+    /**
+     *  Adds a drug to the sale list
+     * @param refundLevel    The refund level for the drug.
+     * @param selectedAmount The selected amount of the drug.
+     * @param newDrug        The drug to add.
+     */
     private void addDrugToSaleList(String refundLevel, int selectedAmount, Drug newDrug) {
         StockItem stockItem = null;
         boolean isAlreadyInList = false;
+        //check if this drug was already added
         for (int i = 0; i < saleList.getItems().size(); i++) {
             stockItem = (StockItem) saleList.getItems().get(i);
             if (stockItem.getDrug().equals(newDrug)) {
@@ -134,21 +166,27 @@ public class SaleController {
             //add to sales list
             saleList.getItems().add(stockItem);
         }
-        //calculate price
+        //set price
         priceTextField.setText(String.valueOf(sale.calculatePrice()));
     }
 
+    /**
+     * Removes a drug from the sale list
+     * @param actionEvent
+     */
     @FXML
     private void removeDrugFromSaleList(ActionEvent actionEvent){
-        if(saleList.getSelectionModel().isEmpty()){
-
-        }else{
+        //check if any drug is selected to remove
+        if(!saleList.getSelectionModel().isEmpty()){
             StockItem stockItem = (StockItem) saleList.getSelectionModel().getSelectedItem();;
             //The selected drug is on prescription
             if(!stockItem.getDrug().getClass().equals(NonPrescriptionDrug.class)){
+                //Update the prescription list
                 prescriptionController.getDrugBack(stockItem.getDrug().getDrugName(), Math.abs(stockItem.getAmount()));
             }
+            //Remove StockItem from sale list
             saleList.getItems().remove(stockItem);
+            //Remove associations
             sale.removeStockItem(stockItem);
             stockItem.removeDrug();
             allDrugsList.refresh();
@@ -156,6 +194,11 @@ public class SaleController {
         }
     }
 
+    /**
+     * Handles the event of checking the prescription code and opening prescription window if correct
+     * @param actionEvent
+     * @throws IOException
+     */
     public void eventCheckPrescriptionCode(ActionEvent actionEvent) throws IOException {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Prescription");
@@ -185,6 +228,11 @@ public class SaleController {
         }
     }
 
+    /**
+     * Handles the event of checking the document type and opens the invoice window if selected
+     * @param actionEvent
+     * @throws IOException
+     */
     public void eventCheckTheDocumentType(ActionEvent actionEvent) throws IOException {
         if (!methodOfPaymentComboBox.getSelectionModel().isEmpty() && !saleList.getItems().isEmpty()) {
             sale.setMethodOfPayment(methodOfPaymentComboBox.getSelectionModel().getSelectedItem().toString());
@@ -194,14 +242,14 @@ public class SaleController {
             alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
             alert.setContentText("Choose your option.");
 
-            ButtonType buttonTypeOne = new ButtonType("Invoice");
-            ButtonType buttonTypeTwo = new ButtonType("Receipt");
+            ButtonType invoiceButton = new ButtonType("Invoice");
+            ButtonType paymentConfirmationButton = new ButtonType("Receipt");
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+            alert.getButtonTypes().setAll(invoiceButton, paymentConfirmationButton, buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonTypeOne) {
+            if (result.get() == invoiceButton) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceGUI.fxml"));
                 Parent root = loader.load();
                 InvoiceController invoiceController = loader.getController();
@@ -209,8 +257,8 @@ public class SaleController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
-            } else if (result.get() == buttonTypeTwo) {
-
+            } else if (result.get() == paymentConfirmationButton) {
+                //if this document is selected creates document and writes extent
                 StringBuilder stringBuilder = new StringBuilder();
 
                 stringBuilder.append("Date: ").append(LocalDate.now() + "\n");

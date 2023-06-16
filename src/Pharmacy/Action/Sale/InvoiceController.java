@@ -9,13 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * The controller class for managing invoices.
+ */
 public class InvoiceController {
     public Button confirmButton;
     public Button abortButton;
@@ -34,16 +36,29 @@ public class InvoiceController {
     public TextField dateTextField;
     private SaleController saleController;
 
+    /**
+     * Sets the parent controller
+     * @param saleController
+     */
     public void setParentController(SaleController saleController) {
         this.saleController = saleController;
     }
 
+    /**
+     * It sets the initial values for the invoice number and date fields
+     */
     @FXML
     public void initialize(){
         invoiceNumberTextField.setText(UUID.randomUUID().toString());
         dateTextField.setText(LocalDate.now().toString());
     }
 
+    /**
+     * Event handler for the confirmButton
+     * Generates the invoice description based on the provided information and adds it as a document to the sale
+     * Finally writes extents and finishes the usecase
+     * @param actionEvent
+     */
     public void eventGetDescriptionForInvoice(ActionEvent actionEvent){
         if(nameTextField.getText().isEmpty() || surnameTextField.getText().isEmpty() || companyNameTextField.getText().isEmpty() || nipTextField.getText().isEmpty() ){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,6 +88,10 @@ public class InvoiceController {
         }
     }
 
+    /**
+     * Closes the window associated with the button
+     * @param actionEvent
+     */
     public void eventClose(ActionEvent actionEvent) {
         Stage stage = (Stage) abortButton.getScene().getWindow();
         stage.close();

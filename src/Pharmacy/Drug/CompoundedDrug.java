@@ -5,6 +5,10 @@ import Pharmacy.*;
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ * Class representing one type of drug - Compounded Drug that extends Drug
+ * It implements the Serializable interface
+ */
 public class CompoundedDrug extends Drug implements Serializable {
     private String formula;
     private String typeOfPackage;
@@ -12,6 +16,16 @@ public class CompoundedDrug extends Drug implements Serializable {
     private Map<String, Integer> ingredients;
     private CommunityPharmacyEmployee.Pharmacist pharmacist;
 
+    /**
+     * Creates a new Compounded drug instance that has association with pharmacist 1-*
+     * @param drugName
+     * @param price
+     * @param formula
+     * @param typeOfPackage
+     * @param dose
+     * @param ingredients
+     * @param pharmacist
+     */
     public CompoundedDrug(String drugName, double price, String formula, String typeOfPackage, double dose, Map<String, Integer> ingredients, CommunityPharmacyEmployee.Pharmacist pharmacist) {
         super(drugName, price);
         this.formula = formula;
@@ -21,11 +35,19 @@ public class CompoundedDrug extends Drug implements Serializable {
         addPharmacist(pharmacist);
     }
 
+
+    /**
+     * Creates association with pharmacist
+     * @param pharmacist
+     */
     public void addPharmacist(CommunityPharmacyEmployee.Pharmacist pharmacist) {
         this.pharmacist = pharmacist;
         this.pharmacist.addCompoundedDrug(this);
     }
 
+    /**
+     * Removes association with pharmacist
+     */
     public void removePharmacist() {
         pharmacist.removeCompoundedDrug(this);
         pharmacist = null;
@@ -50,6 +72,7 @@ public class CompoundedDrug extends Drug implements Serializable {
         sb.append("Formula: ").append(formula).append("\n");
         sb.append("Type of Package: ").append(typeOfPackage).append("\n");
         sb.append("Dose: ").append(dose).append("\n");
+        sb.append("Amount: ").append(getStock()).append("\n");
         sb.append("Ingredients: \n");
         for (Map.Entry<String, Integer> ingredient : ingredients.entrySet()) {
             sb.append("- ").append(ingredient.getKey()).append(": ").append(ingredient.getValue()).append("\n");

@@ -9,9 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The RegisteredPrescriptions class represents a collection of registered prescriptions.
+ */
 public class RegisteredPrescriptions {
     private Map<String, List<Prescription>> allRegisteredPrescriptions;
 
+    /**
+     * Constructs a new RegisteredPrescriptions instance
+     * Initializes map with sample prescription data
+     */
     public RegisteredPrescriptions(){
         Prescription prescription1 = new Prescription(LocalDate.of(2000, 11, 16), "Anna Kowalska", "Jolanta Nowak", "Lamitrin", "2,5mg");
 
@@ -33,7 +40,7 @@ public class RegisteredPrescriptions {
         Prescription prescription4 = new Prescription(LocalDate.of(2023, 11, 16), "Anna Nowak", "Stanisława Roman",
                 "Amoxicilin", "5,6mg" );
         Prescription prescription5 = new Prescription(LocalDate.of(2023, 11, 16), "Anna Nowak", "Stanisława Roman",
-                "Fluoxetine", "10mg" );
+                "Labetalol oral suspension", "10mg" );
         Prescription prescription6 = new Prescription(LocalDate.of(2023, 11, 16), "Anna Nowak", "Stanisława Roman",
                 "Acard", "10mg" );
 
@@ -65,6 +72,17 @@ public class RegisteredPrescriptions {
     public Map<String, List<Prescription>> getAllRegisteredPrescriptions() {
         return allRegisteredPrescriptions;
     }
+
+    public void SetAmountForPrescription(String code, String drugName, int selectedAmount){
+        for(Prescription pres : allRegisteredPrescriptions.get(code)){
+            if(pres.getDrugName().equals(drugName)){
+                pres.setAmount(pres.getAmount() + selectedAmount);
+                break;
+            }
+        }
+    }
+
+
 
 
 }

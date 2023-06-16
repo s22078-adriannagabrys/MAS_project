@@ -81,7 +81,7 @@ public class Main extends Application {
         PrescribedOnlyMedicine drug7 = new PrescribedOnlyMedicine( "Lamitrin", 21.99, 4567);
         PrescribedOnlyMedicine drug8 = new PrescribedOnlyMedicine( "Acard", 40.89, 7890);
         PrescribedOnlyMedicine drug9 = new PrescribedOnlyMedicine( "Minovivax", 23.99, 4345);
-        CompoundedDrug drug10 = new CompoundedDrug( "Labetalol oral suspension", 23.55, "solution", "box", 10, new HashMap<String, Integer>(){{
+        CompoundedDrug drug10 = new CompoundedDrug( "Labetalol oral suspension", 23.55, "suspension", "box", 10, new HashMap<String, Integer>(){{
             put("Lactose", 5);
             put("Sugar", 10);
             put("Salt", 3);
@@ -91,16 +91,16 @@ public class Main extends Application {
         Order order = new Order(LocalDate.now(),pharmacyEmployee,"Hasco", Order.Status.NEW);
         WarehouseUpdate warehouseUpdate = new WarehouseUpdate(LocalDate.now(),pharmacyEmployee, "Initial");
 
-        StockItem stockItem1 = new StockItem(5, warehouseUpdate, drug1);
-        StockItem stockItem2 = new StockItem(5, warehouseUpdate, drug2);
-        StockItem stockItem3 = new StockItem(5, warehouseUpdate, drug3);
-        StockItem stockItem4 = new StockItem(5, warehouseUpdate, drug4);
-        StockItem stockItem5 = new StockItem(5, warehouseUpdate, drug5);
-        StockItem stockItem6 = new StockItem(5, warehouseUpdate, drug6);
-        StockItem stockItem7 = new StockItem(5, warehouseUpdate, drug7);
+        StockItem stockItem1 = new StockItem(53, warehouseUpdate, drug1);
+        StockItem stockItem2 = new StockItem(25, warehouseUpdate, drug2);
+        StockItem stockItem3 = new StockItem(56, warehouseUpdate, drug3);
+        StockItem stockItem4 = new StockItem(57, warehouseUpdate, drug4);
+        StockItem stockItem5 = new StockItem(2, warehouseUpdate, drug5);
+        StockItem stockItem6 = new StockItem(6, warehouseUpdate, drug6);
+        StockItem stockItem7 = new StockItem(1, warehouseUpdate, drug7);
         StockItem stockItem8 = new StockItem(5, warehouseUpdate, drug8);
         StockItem stockItem9 = new StockItem(5, warehouseUpdate, drug9);
-        StockItem stockItem10 = new StockItem(5, warehouseUpdate, drug10);
+        StockItem stockItem10 = new StockItem(3, warehouseUpdate, drug10);
 
 
         try{

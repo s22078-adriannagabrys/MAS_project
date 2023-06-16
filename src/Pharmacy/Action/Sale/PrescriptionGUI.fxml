@@ -23,7 +23,7 @@
          <children>
             <RadioButton fx:id="refundRadioButton" mnemonicParsing="false" onAction="#eventIsRefunded" text="Refund" />
             <ComboBox fx:id="refundComboBox" disable="true" prefWidth="150.0" />
-            <RadioButton fx:id="noRefundRadioButton" mnemonicParsing="false" selected="true" text="No refund" />
+            <RadioButton fx:id="noRefundRadioButton" mnemonicParsing="false" onAction="#eventIsNotRefunded" selected="true" text="No refund" />
          </children>
       </VBox>
       <VBox layoutX="212.0" layoutY="273.0" prefHeight="46.0" prefWidth="100.0">

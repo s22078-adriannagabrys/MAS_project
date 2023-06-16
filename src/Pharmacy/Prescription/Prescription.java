@@ -4,6 +4,9 @@ import Pharmacy.Drug.*;
 
 import java.time.LocalDate;
 
+/**
+ * The Prescription class represents a prescription for a specific drug.
+ */
 public class Prescription {
     private LocalDate dateOfPrescription;
     private String patientName;
@@ -12,6 +15,14 @@ public class Prescription {
     private String dose;
     private int amount;
 
+    /**
+     * Constructs a new Prescription instance
+     * @param dateOfPrescription
+     * @param patientName
+     * @param doctorName
+     * @param drugName
+     * @param dose
+     */
     public Prescription(LocalDate dateOfPrescription, String patientName, String doctorName, String drugName, String dose) {
         this.dateOfPrescription = dateOfPrescription;
         this.patientName = patientName;

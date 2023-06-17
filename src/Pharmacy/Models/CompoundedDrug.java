@@ -1,6 +1,4 @@
-package Pharmacy.Drug;
-
-import Pharmacy.*;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -35,20 +33,21 @@ public class CompoundedDrug extends Drug implements Serializable {
         addPharmacist(pharmacist);
     }
 
-
     /**
      * Creates association with pharmacist
      * @param pharmacist
      */
-    public void addPharmacist(CommunityPharmacyEmployee.Pharmacist pharmacist) {
-        this.pharmacist = pharmacist;
-        this.pharmacist.addCompoundedDrug(this);
+    void addPharmacist(CommunityPharmacyEmployee.Pharmacist pharmacist) {
+        if(pharmacist != null){
+            this.pharmacist = pharmacist;
+            this.pharmacist.addCompoundedDrug(this);
+        }else throw new NullPointerException();
     }
 
     /**
      * Removes association with pharmacist
      */
-    public void removePharmacist() {
+    void removePharmacist() {
         pharmacist.removeCompoundedDrug(this);
         pharmacist = null;
 

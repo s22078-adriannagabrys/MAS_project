@@ -1,21 +1,11 @@
-package Pharmacy.Action.Sale;
+package Pharmacy.GUI;
 
-import Pharmacy.Action.Action;
-import Pharmacy.Action.Order;
-import Pharmacy.Action.WarehouseUpdate;
-import Pharmacy.CommunityPharmacyEmployee;
-import Pharmacy.Drug.CompoundedDrug;
-import Pharmacy.Drug.Drug;
-import Pharmacy.Drug.NonPrescriptionDrug;
-import Pharmacy.Drug.PrescribedOnlyMedicine;
-import Pharmacy.ObjectPlus;
-import Pharmacy.StockItem;
+import Pharmacy.Models.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;

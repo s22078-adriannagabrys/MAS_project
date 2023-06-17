@@ -1,7 +1,4 @@
-package Pharmacy.Action.Sale;
-
-import Pharmacy.Action.*;
-import Pharmacy.CommunityPharmacyEmployee;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -46,9 +43,11 @@ public class Sale extends Action implements Serializable {
      * @param newDocument
      */
     public void addDocument(Document newDocument) {
-        if(!documents.contains(newDocument)) {
-            documents.add(newDocument);
-        }
+        if(newDocument != null){
+            if(!documents.contains(newDocument)) {
+                documents.add(newDocument);
+            }
+        } else throw new NullPointerException();
     }
     public List<Document> getDocuments(){
         return documents;

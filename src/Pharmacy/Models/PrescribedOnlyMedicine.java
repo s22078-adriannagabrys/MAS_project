@@ -1,4 +1,6 @@
-package Pharmacy.Drug;
+package Pharmacy.Models;
+
+import Pharmacy.Models.Drug;
 
 import java.io.Serializable;
 

@@ -1,7 +1,4 @@
-package Pharmacy.Action;
-
-import Pharmacy.Drug.*;
-import Pharmacy.*;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -51,17 +48,19 @@ public class Action extends ObjectPlus implements Serializable {
      * Adds a new association with StockItem
      * @param newStockItem
      */
-    public void addStockItem(StockItem newStockItem) {
-        if(!stockItems.contains(newStockItem)) {
-            stockItems.add(newStockItem);
-            newStockItem.addAction(this);
-        }
+    void addStockItem(StockItem newStockItem) {
+        if(newStockItem != null){
+            if(!stockItems.contains(newStockItem)) {
+                stockItems.add(newStockItem);
+                newStockItem.addAction(this);
+            }
+        }else throw new NullPointerException();
     }
     /**
      * Removes selected association with StockItem
      * @param toRemove
      */
-    public void removeStockItem(StockItem toRemove) {
+    void removeStockItem(StockItem toRemove) {
         if(stockItems.contains(toRemove)) {
             stockItems.remove(toRemove);
             toRemove.removeAction();
@@ -72,15 +71,17 @@ public class Action extends ObjectPlus implements Serializable {
      * Adds a new association with CommunityPharmacyEmployee
      * @param newEmployee
      */
-    public void addEmployee(CommunityPharmacyEmployee newEmployee) {
-        communityPharmacyEmployee = newEmployee;
-        communityPharmacyEmployee.addAction(this);
+    void addEmployee(CommunityPharmacyEmployee newEmployee) {
+        if(newEmployee != null){
+            communityPharmacyEmployee = newEmployee;
+            communityPharmacyEmployee.addAction(this);
+        }else throw new NullPointerException();
     }
 
     /**
      * Removes selected association with CommunityPharmacyEmployee
      */
-    public void removeEmployee() {
+    void removeEmployee() {
         communityPharmacyEmployee.removeAction(this);
         communityPharmacyEmployee = null;
     }

@@ -1,8 +1,4 @@
-package Pharmacy.Action;
-
-import Pharmacy.Action.Action;
-import Pharmacy.CommunityPharmacyEmployee;
-import Pharmacy.StockItem;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,10 +1,10 @@
-package Pharmacy.Action.Sale;
+package Pharmacy.GUI;
 
-import Pharmacy.CommunityPharmacyEmployee;
-import Pharmacy.Drug.*;
-import Pharmacy.ObjectPlus;
-import Pharmacy.Prescription.RegisteredPrescriptions;
-import Pharmacy.StockItem;
+import Pharmacy.Models.*;
+import Pharmacy.Models.CommunityPharmacyEmployee;
+import Pharmacy.Models.ObjectPlus;
+import Pharmacy.DTOs.RegisteredPrescriptions;
+import Pharmacy.Models.StockItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -187,8 +187,7 @@ public class SaleController {
             //Remove StockItem from sale list
             saleList.getItems().remove(stockItem);
             //Remove associations
-            sale.removeStockItem(stockItem);
-            stockItem.removeDrug();
+            stockItem.delete();
             allDrugsList.refresh();
             priceTextField.setText(String.valueOf(sale.calculatePrice()));
         }

@@ -1,7 +1,5 @@
-package Pharmacy.Prescription;
+package Pharmacy.DTOs;
 
-import Pharmacy.Drug.*;
-import Pharmacy.Prescription.Prescription;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

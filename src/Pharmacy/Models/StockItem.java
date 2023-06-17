@@ -1,7 +1,4 @@
-package Pharmacy;
-
-import Pharmacy.Action.Action;
-import Pharmacy.Drug.Drug;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 
@@ -33,7 +30,7 @@ public class StockItem extends ObjectPlus implements Serializable {
      * Adds a new association with Action
      * @param newAction
      */
-    public void addAction(Action newAction) {
+    void addAction(Action newAction) {
         this.action = newAction;
         action.addStockItem(this);
     }
@@ -41,7 +38,7 @@ public class StockItem extends ObjectPlus implements Serializable {
     /**
      * Removes selected association with Action
      */
-    public void removeAction() {
+    void removeAction() {
         this.action.removeStockItem(this);
         action = null;
     }
@@ -50,7 +47,7 @@ public class StockItem extends ObjectPlus implements Serializable {
      * Adds a new association with Drug
      * @param newDrug
      */
-    public void addDrug(Drug newDrug) {
+    void addDrug(Drug newDrug) {
         this.drug = newDrug;
         drug.addStockItem(this);
     }
@@ -58,11 +55,23 @@ public class StockItem extends ObjectPlus implements Serializable {
     /**
      * Removes selected association with Drug
      */
-    public void removeDrug() {
+    void removeDrug() {
         this.drug.removeStockItem(this);
         drug = null;
     }
 
+    /**
+     * Unlinks from Drug, Action and removes from extent
+     */
+    public void delete(){
+        removeDrug();
+        removeAction();
+        try {
+            removeExtent(this);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Calculates the price of the stock item with the refund level
      * @return the calculated price with refund level

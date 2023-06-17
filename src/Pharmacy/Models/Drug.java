@@ -1,6 +1,4 @@
-package Pharmacy.Drug;
-
-import Pharmacy.*;
+package Pharmacy.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -54,18 +52,20 @@ public abstract class Drug extends ObjectPlus implements Serializable {
      * Adds a new association with StockItem
      * @param newStockItem
      */
-    public void addStockItem(StockItem newStockItem) {
-        if(!stockItems.contains(newStockItem)) {
-            stockItems.add(newStockItem);
-            newStockItem.addDrug(this);
-        }
+    void addStockItem(StockItem newStockItem) {
+        if(newStockItem != null){
+            if(!stockItems.contains(newStockItem)) {
+                stockItems.add(newStockItem);
+                newStockItem.addDrug(this);
+            }
+        }else throw new NullPointerException();
     }
 
     /**
      * Removes selected association with StockItem
      * @param toRemove
      */
-    public void removeStockItem(StockItem toRemove) {
+    void removeStockItem(StockItem toRemove) {
         if(stockItems.contains(toRemove)) {
             stockItems.remove(toRemove);
             toRemove.removeDrug();

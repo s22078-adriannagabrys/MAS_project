@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pharmacy.Action.Sale.SaleController">
+<AnchorPane prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pharmacy.GUI.SaleController">
    <children>
       <VBox layoutX="67.0" layoutY="66.0" prefHeight="134.0" prefWidth="466.0">
          <children>

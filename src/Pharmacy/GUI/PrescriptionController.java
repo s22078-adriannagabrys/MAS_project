@@ -1,5 +1,6 @@
-package Pharmacy.Action.Sale;
-import Pharmacy.Prescription.Prescription;
+package Pharmacy.GUI;
+import Pharmacy.DTOs.Prescription;
+import Pharmacy.GUI.SaleController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;

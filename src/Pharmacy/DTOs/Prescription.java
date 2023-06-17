@@ -1,6 +1,4 @@
-package Pharmacy.Prescription;
-
-import Pharmacy.Drug.*;
+package Pharmacy.DTOs;
 
 import java.time.LocalDate;
 

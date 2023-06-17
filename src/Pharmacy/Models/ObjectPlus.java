@@ -1,4 +1,4 @@
-package Pharmacy;
+package Pharmacy.Models;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

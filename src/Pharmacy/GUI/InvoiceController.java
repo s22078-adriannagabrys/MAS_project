@@ -1,9 +1,10 @@
-package Pharmacy.Action.Sale;
+package Pharmacy.GUI;
 
-import Pharmacy.ObjectPlus;
+import Pharmacy.GUI.SaleController;
+import Pharmacy.Models.Sale;
+import Pharmacy.Models.ObjectPlus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.LoadException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

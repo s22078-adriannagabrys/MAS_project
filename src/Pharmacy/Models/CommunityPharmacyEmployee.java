@@ -1,7 +1,5 @@
-package Pharmacy;
+package Pharmacy.Models;
 
-import Pharmacy.Action.Action;
-import Pharmacy.Drug.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
@@ -208,10 +206,12 @@ public class CommunityPharmacyEmployee extends ObjectPlus implements Serializabl
          * @param newCompoundedDrug
          */
         public void addCompoundedDrug(CompoundedDrug newCompoundedDrug) {
-            if(!compoundedDrugs.contains(newCompoundedDrug)) {
-                compoundedDrugs.add(newCompoundedDrug);
-                newCompoundedDrug.addPharmacist(this);
-            }
+            if(newCompoundedDrug != null){
+                if(!compoundedDrugs.contains(newCompoundedDrug)) {
+                    compoundedDrugs.add(newCompoundedDrug);
+                    newCompoundedDrug.addPharmacist(this);
+                }
+            } else throw new NullPointerException();
         }
 
         /**

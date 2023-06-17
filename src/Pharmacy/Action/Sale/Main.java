@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Main extends Application {
-    public static CommunityPharmacyEmployee pharmacyEmployee;
-    public static CommunityPharmacyEmployee pharmacyEmployee2;
 
     @Override
     public void start(Stage primaryStage) {
@@ -45,11 +43,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            initData();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initData();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         try{
             ObjectPlus.readExtents(new ObjectInputStream(new FileInputStream("Pharmacy.txt")));
         } catch (IOException | ClassNotFoundException e) {
@@ -59,6 +57,8 @@ public class Main extends Application {
     }
 
     public static void initData() throws Exception {
+        CommunityPharmacyEmployee pharmacyEmployee;
+        CommunityPharmacyEmployee pharmacyEmployee2;
 
         pharmacyEmployee = new CommunityPharmacyEmployee(UUID.randomUUID().toString(), "Anna", "Nowak", "123456789", LocalDate.of(2000, 12, 21), 31.00, LocalDate.of(2005, 12, 21));
         pharmacyEmployee2 = new CommunityPharmacyEmployee(UUID.randomUUID().toString(), "Jolanta", "Nowak", "493728436", LocalDate.of(2000, 12, 21), 28.00, LocalDate.of(2017, 12, 21));
